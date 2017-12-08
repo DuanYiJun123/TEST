@@ -7,6 +7,7 @@ import qqduan.test.interfac.CaseBefore;
 
 public abstract class AbsTestCase {
 	
+	private String name;
 	private Map<String,String> caseInparam;
 	private Map<String,String> caseExparam;
 	private Map<String,String> caseOutparam;
@@ -18,6 +19,12 @@ public abstract class AbsTestCase {
 	AbsTestCase from;
 	AbsTestCase to;
 	
+	public AbsTestCase(String name) {
+		super();
+		this.name = name;
+		this.isSuccess = false;
+	}
+
 	abstract boolean test(); 
 	
 	public AbsTestCase afterCase(AbsTestCase tmp){
@@ -43,6 +50,12 @@ public abstract class AbsTestCase {
 	}
 	public void setCaseOutparam(Map<String, String> caseOutparam) {
 		this.caseOutparam = caseOutparam;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
 	}
 
 }
