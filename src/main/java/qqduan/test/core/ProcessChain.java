@@ -4,18 +4,39 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import qqduan.test.interfac.ChainAfter;
+import qqduan.test.interfac.ChainBefore;
+
 public class ProcessChain {
+	String name;
 	AbsTestCase head;
 	Map<String, Map<String, String>> chainInparam;
 	Map<String, Map<String, String>> chainExparam;
 	boolean isSuccess;
+	ChainInfo chainInfo;
 	List<Boolean> success = new ArrayList<>();
+	
+	public ProcessChain(String name,AbsTestCase head) {
+		super();
+		this.name = name;
+		this.head=head;
+	}
+
+	ChainAfter chainAfter;
+	ChainBefore chainBefore;
 
 	public void ontest() {
+		if(chainBefore!=null){
+			chainBefore.chainBefore(this);
+		}
+		
 		setChainData(this.chainExparam, this.chainExparam);
 		AbsTestCase tmp = this.head;
 		while (tmp != null) {
 			success.add(tmp.test());
+		}
+		if(chainAfter!=null){
+			chainAfter.chainAfter(this);
 		}
 		this.isSuccess=isSuccess();
 	}
