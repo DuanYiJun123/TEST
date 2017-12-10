@@ -13,7 +13,7 @@ public class AbsHttpTestCase extends AbsTestCase {
 	PortType porttype;
 	RequestType requettype;
 
-	public AbsHttpTestCase(String name, boolean isSuccess, String mapping, PortType porttype, RequestType requettype) {
+	public AbsHttpTestCase(String name) {
 		super(name);
 		if (!getClass().isAnnotationPresent(HttpTest.class)) {
 			throw new RuntimeException("no annotation label");

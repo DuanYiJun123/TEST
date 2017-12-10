@@ -43,11 +43,12 @@ public abstract class AbsTestCase {
 		return tmp;
 	}
 
-	public AbsTestCase commitChain(AbsTestCase tmp) {
+	public ProcessChain commitChain() {
+		AbsTestCase tmp=this;
 		while (tmp != null) {
 			tmp = tmp.from;
 		}
-		return tmp;
+		return new ProcessChain(tmp.name, tmp);
 	}
 
 	public Map<String, String> getCaseInparam() {
