@@ -29,7 +29,7 @@ public class AbsHttpTestCase extends AbsTestCase {
 		String result;
 		switch (requettype) {
 		case keyValue:
-			result = HttpClientUtil.sendPostRequestByJava("http://" + Defines.IP + this.mapping,
+			result = HttpClientUtil.sendPostRequestByJava("http://" + Defines.IP + porttype.port + this.mapping,
 					super.getCaseInparam());
 			if (result != null) {
 				super.caseResult.setData(result);
@@ -43,7 +43,8 @@ public class AbsHttpTestCase extends AbsTestCase {
 		case json:
 			JSONObject json = new JSONObject();
 			json.putAll(getCaseInparam());
-			result = HttpClientUtil.sendPostRequestByJava("http://" + Defines.IP + this.mapping, json.toString());
+			result = HttpClientUtil.sendPostRequestByJava("http://" + Defines.IP + porttype.port + this.mapping,
+					json.toString());
 			if (result != null) {
 				super.caseResult.setData(result);
 				JSONObject jsonresult = JSONObject.parseObject(result);

@@ -1,5 +1,8 @@
 package qqduan.test.core;
 
+import qqduan.test.util.XmlUtil;
+
 public class Defines {
-	public static final String IP="192.168.10.140";
+	
+	public static String IP=XmlUtil.get("/test/src/main/java/config.xml").element("ip").getStringValue();
 }

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+	<ip>192.168.10.140</ip>
+	<port>7010</port>
+	
+	
+	<process>
+		<group name="qqduan.test.process.TestProcess.java" skip="false"></group> 
+		<group name="qqduan.test.process.TestProcess.java" skip="false"></group> 
+	
+	
+	</process>
+
+
+
+
+
+
+</root>

@@ -16,8 +16,8 @@ public abstract class AbsProcessGroup {
 	Map<String, Map<String, Map<String, String>>> groupExparam;
 	boolean isSuccess;
 
-	public GroupBefore groupBefore;
-	public GroupAfter groupAfter;
+	private GroupBefore groupBefore;
+	private GroupAfter groupAfter;
 
 	public AbsProcessGroup(ProcessChain... tmplates) {
 		super();
@@ -44,5 +44,21 @@ public abstract class AbsProcessGroup {
 		if (groupAfter != null) {
 			groupAfter.groupAfter(this);
 		}
+	}
+
+	public GroupBefore getGroupBefore() {
+		return groupBefore;
+	}
+
+	public void setGroupBefore(GroupBefore groupBefore) {
+		this.groupBefore = groupBefore;
+	}
+
+	public GroupAfter getGroupAfter() {
+		return groupAfter;
+	}
+
+	public void setGroupAfter(GroupAfter groupAfter) {
+		this.groupAfter = groupAfter;
 	}
 }

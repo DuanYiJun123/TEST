@@ -22,8 +22,8 @@ public class ProcessChain {
 		this.head=head;
 	}
 
-	ChainAfter chainAfter;
-	ChainBefore chainBefore;
+	private ChainAfter chainAfter;
+	private ChainBefore chainBefore;
 
 	public void ontest() {
 		if(chainBefore!=null){
@@ -57,4 +57,21 @@ public class ProcessChain {
 			tmp = tmp.to;
 		}
 	}
+
+	public ChainAfter getChainAfter() {
+		return chainAfter;
+	}
+
+	public void setChainAfter(ChainAfter chainAfter) {
+		this.chainAfter = chainAfter;
+	}
+
+	public ChainBefore getChainBefore() {
+		return chainBefore;
+	}
+
+	public void setChainBefore(ChainBefore chainBefore) {
+		this.chainBefore = chainBefore;
+	}
+	
 }
