@@ -5,8 +5,8 @@
 	
 	
 	<process>
-		<group name="qqduan.test.process.TestProcess.java" skip="false"></group> 
-		<group name="qqduan.test.process.TestProcess.java" skip="false"></group> 
+		<group name="qqduan.test.process.TestProcess" skip="false"></group> 
+		<group name="qqduan.test.process.TestProcess" skip="false"></group> 
 	
 	
 	</process>

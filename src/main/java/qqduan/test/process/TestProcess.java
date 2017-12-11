@@ -5,14 +5,14 @@ import java.util.Map;
 
 import qqduan.test.cases.TestCase;
 import qqduan.test.cases.TestCase2;
-import qqduan.test.core.AbsProcessGroup;
+import qqduan.test.core.AbsTestProcess;
 import qqduan.test.core.ProcessChain;
 import qqduan.test.core.ProcessGroup;
 import qqduan.test.interfac.ChainBefore;
 import qqduan.test.interfac.GroupAfter;
 import qqduan.test.interfac.GroupBefore;
 
-public class TestProcess extends AbsProcessGroup {
+public class TestProcess extends AbsTestProcess {
 
 	@Override
 	public ProcessGroup tmplates() {

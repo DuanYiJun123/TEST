@@ -5,11 +5,11 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 
-public abstract class AbsProcessGroup {
+public abstract class AbsTestProcess {
 	private String name;
 	ProcessGroup group;
 
-	public AbsProcessGroup() {
+	public AbsTestProcess() {
 		super();
 		this.name.getClass().getSimpleName();
 	}
@@ -22,15 +22,15 @@ public abstract class AbsProcessGroup {
 	public void test() {
 		this.group = tmplates();
 		if (group != null) {
-			Map<String,Map<String,Map<String,String>>> groupInparam=new HashMap<>();
-			Map<String,Map<String,Map<String,String>>> groupExparam=new HashMap<>();
+			Map<String, Map<String, Map<String, String>>> groupInparam = new HashMap<>();
+			Map<String, Map<String, Map<String, String>>> groupExparam = new HashMap<>();
 			setData(groupExparam, groupExparam);
-			Map<String, Map<String, String>> chainInparam = groupInparam.get(group.name);
-			Map<String, Map<String, String>> chainExparam = groupInparam.get(group.name);
 			Iterator<Entry<String, ProcessChain>> it = group.chains.entrySet().iterator();
-			while(it.hasNext()){
+			while (it.hasNext()) {
 				Entry<String, ProcessChain> next = it.next();
 				String chainName = next.getKey();
+				Map<String, Map<String, String>> chainInparam = groupInparam.get(chainName);
+				Map<String, Map<String, String>> chainExparam = groupExparam.get(chainName);
 				group.addData(chainName, chainInparam, chainExparam);
 			}
 			group.ontest();
