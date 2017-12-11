@@ -1,7 +1,7 @@
 package qqduan.test.interfac;
 
-import qqduan.test.core.AbsProcessGroup;
+import qqduan.test.core.ProcessGroup;
 
 public interface GroupBefore {
-	public void groupBefore(AbsProcessGroup group);
+	public void groupBefore(ProcessGroup processGroup);
 }

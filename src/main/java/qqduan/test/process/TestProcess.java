@@ -7,15 +7,16 @@ import qqduan.test.cases.TestCase;
 import qqduan.test.cases.TestCase2;
 import qqduan.test.core.AbsProcessGroup;
 import qqduan.test.core.ProcessChain;
+import qqduan.test.core.ProcessGroup;
 import qqduan.test.interfac.ChainBefore;
 import qqduan.test.interfac.GroupAfter;
 import qqduan.test.interfac.GroupBefore;
 
 public class TestProcess extends AbsProcessGroup {
 
-	public TestProcess(ProcessChain tmplate) {
-		super(tmplate);
-		tmplate = new TestCase("test").afterCase(new TestCase2("test2")).commitChain();
+	@Override
+	public ProcessGroup tmplates() {
+		return new ProcessGroup(new ProcessChain("chain1", new TestCase("case1").afterCase(new TestCase2("case2"))));
 	}
 
 	@Override
@@ -31,7 +32,7 @@ public class TestProcess extends AbsProcessGroup {
 		Map<String, Map<String, String>> chainParam = new HashMap<>();
 		chainParam.put("caseName", caseInparam);
 		groupInparam.put("chainName", chainParam);
-		
+
 	}
 
 }
