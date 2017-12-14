@@ -8,15 +8,21 @@ import qqduan.test.cases.DetectFaceTestCase;
 import qqduan.test.core.AbsTestProcess;
 import qqduan.test.core.ProcessChain;
 import qqduan.test.core.ProcessGroup;
+import qqduan.test.interfac.ChainAfter;
+import qqduan.test.interfac.ChainBefore;
+import qqduan.test.interfac.GroupAfter;
+import qqduan.test.interfac.GroupBefore;
 import qqduan.test.util.FileUtil;
 
-public class ProcessDetectFace extends AbsTestProcess {
+public class ProcessDetectFace extends AbsTestProcess implements GroupBefore, GroupAfter, ChainBefore, ChainAfter {
 
 	@Override
 	public ProcessGroup tmplates() {
-		return new ProcessGroup(new ProcessChain("DetectFaceChain", new DetectFaceTestCase("DetectFaceTestCase")));
+		return new ProcessGroup(new ProcessChain("DetectFaceChain", new DetectFaceTestCase("DetectFaceTestCase"))
+				.setChainBefore(this).setChainAfter(this)).setGroupBefore(this).setGroupAfter(this);
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public void setData(Map<String, Map<String, Map<String, String>>> groupInparam,
 			Map<String, Map<String, Map<String, String>>> groupExparam) {
@@ -33,6 +39,30 @@ public class ProcessDetectFace extends AbsTestProcess {
 
 		chainInparam.put("DetectFaceTestCase", caseInparam);
 		groupInparam.put("DetectFaceChain", chainInparam);
+
+		caseExparam.put("result", "0");
+		chainExparam.put("DetectFaceTestCase", caseExparam);
+		groupExparam.put("DetectFaceChain", chainExparam);
+	}
+
+	@Override
+	public void groupBefore(ProcessGroup processGroup) {
+		System.out.println("groupBefore");
+	}
+
+	@Override
+	public void groupAfter(ProcessGroup group) {
+		System.out.println("groupAfter");
+	}
+
+	@Override
+	public void chainBefore(ProcessChain chain) {
+		System.out.println("chainBefore");
+	}
+
+	@Override
+	public void chainAfter(ProcessChain chain) {
+		System.out.println("chainAfter");
 	}
 
 }

@@ -12,38 +12,42 @@ public class ProcessChain {
 	AbsTestCase head;
 	Map<String, Map<String, String>> chainInparam;
 	Map<String, Map<String, String>> chainExparam;
-	boolean isSuccess;
+	boolean isSuccess = false;
 	ChainInfo chainInfo;
-	List<Boolean> success = new ArrayList<>();
-	
-	public ProcessChain(String name,AbsTestCase head) {
+	List<Boolean> success;
+	List<CaseResult> caseResultList;
+
+	public ProcessChain(String name, AbsTestCase head) {
 		super();
 		this.name = name;
-		this.head=head;
+		this.head = head;
+		this.success = new ArrayList<>();
+		this.caseResultList = new ArrayList<>();
 	}
 
 	private ChainAfter chainAfter;
 	private ChainBefore chainBefore;
 
 	public void ontest() {
-		if(chainBefore!=null){
+		if (chainBefore != null) {
 			chainBefore.chainBefore(this);
 		}
-		
-		
+
 		AbsTestCase tmp = this.head;
 		while (tmp != null) {
-			success.add(tmp.test());
-			tmp=tmp.to;
+			tmp.ontest();
+			success.add(tmp.isSuccess);
+			caseResultList.add(tmp.caseResult);
+			tmp = tmp.to;
 		}
-		if(chainAfter!=null){
+		if (chainAfter != null) {
 			chainAfter.chainAfter(this);
 		}
-		this.isSuccess=isSuccess();
+		this.isSuccess = isSuccess();
 	}
-	
-	public boolean isSuccess(){
-	return this.success.stream().allMatch(p->{
+
+	public boolean isSuccess() {
+		return this.success.stream().allMatch(p -> {
 			return p;
 		});
 	}
@@ -54,7 +58,7 @@ public class ProcessChain {
 		while (tmp != null) {
 			String name = tmp.getName();
 			tmp.setCaseInparam(chainInparam.get(name));
-			//tmp.setCaseExparam(chainExparam.get(name));
+			tmp.setCaseExparam(chainExparam.get(name));
 			tmp = tmp.to;
 		}
 	}
@@ -76,5 +80,5 @@ public class ProcessChain {
 		this.chainBefore = chainBefore;
 		return this;
 	}
-	
+
 }

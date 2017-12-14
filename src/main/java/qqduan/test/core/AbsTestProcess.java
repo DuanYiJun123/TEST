@@ -11,7 +11,7 @@ public abstract class AbsTestProcess {
 
 	public AbsTestProcess() {
 		super();
-		this.name=getClass().getSimpleName();
+		this.name = getClass().getSimpleName();
 	}
 
 	public abstract ProcessGroup tmplates();
@@ -20,7 +20,8 @@ public abstract class AbsTestProcess {
 			Map<String, Map<String, Map<String, String>>> groupExparam);
 
 	public void test() {
-		System.out.println("开始测试："+name+" ====================");
+		System.out.println("============================");
+		System.out.println("开始测试：" + name);
 		this.group = tmplates();
 		if (group != null) {
 			Map<String, Map<String, Map<String, String>>> groupInparam = new HashMap<>();
@@ -31,11 +32,11 @@ public abstract class AbsTestProcess {
 				Entry<String, ProcessChain> next = it.next();
 				String chainName = next.getKey();
 				Map<String, Map<String, String>> chainInparam = groupInparam.get(chainName);
-				//Map<String, Map<String, String>> chainExparam = groupExparam.get(chainName);
-				group.addData(chainName, chainInparam, null);
+				Map<String, Map<String, String>> chainExparam = groupExparam.get(chainName);
+				group.addData(chainName, chainInparam, chainExparam);
 			}
 			group.ontest();
-			System.out.println("============================");
+			System.out.println("测试结果:" + this.group.isSuccess());
 		}
 	}
 }

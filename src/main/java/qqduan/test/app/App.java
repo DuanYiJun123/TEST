@@ -1,7 +1,8 @@
 package qqduan.test.app;
 
 /**
- * Hello world!
+ * author YiJun Duan
+ * Email 377028119@qq.com
  *
  */
 public class App 

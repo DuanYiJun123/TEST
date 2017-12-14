@@ -1,9 +1,14 @@
 package qqduan.test.core;
 
+import java.util.Iterator;
 import java.util.Map;
+import java.util.Map.Entry;
+
+import com.alibaba.fastjson.JSONObject;
 
 import qqduan.test.interfac.CaseAfter;
 import qqduan.test.interfac.CaseBefore;
+import qqduan.test.interfac.CheckResult;
 
 public abstract class AbsTestCase {
 
@@ -15,6 +20,7 @@ public abstract class AbsTestCase {
 	CaseBefore caseBefore;
 	CaseAfter caseAfter;
 	CaseResult caseResult;
+	CheckResult checkResult;
 
 	AbsTestCase from;
 	AbsTestCase to;
@@ -29,10 +35,17 @@ public abstract class AbsTestCase {
 		if (caseBefore != null) {
 			caseBefore.caseBefore(this);
 		}
-		test();
+		isSuccess = test();
+		if (checkResult != null) {
+			boolean flag = checkResult.checkResult(caseExparam);
+			if (isSuccess == true) {
+				isSuccess = flag;
+			}
+		}
 		if (caseAfter != null) {
 			caseAfter.caseAfter(this);
 		}
+
 	}
 
 	abstract boolean test();
@@ -44,11 +57,57 @@ public abstract class AbsTestCase {
 	}
 
 	public ProcessChain commitChain() {
-		AbsTestCase tmp=this;
+		AbsTestCase tmp = this;
 		while (tmp != null) {
 			tmp = tmp.from;
 		}
 		return new ProcessChain(tmp.name, tmp);
+	}
+
+	public Map<String,String> getTransParam(Map<String, String> param) {
+		Iterator<Entry<String, String>> iter = param.entrySet().iterator();
+		while (iter.hasNext()) {
+			Entry<String, String> next = iter.next();
+			String key = next.getKey();
+			// "#caseName:score"
+			if (key.startsWith("#")) {
+				String caseName = "";
+				String trans = "";
+				try {
+					String key1 = key.substring(1, key.length());
+					String[] arr = key1.split(":");
+					caseName = arr[0];
+					trans = arr[1];
+				} catch (Exception e) {
+					System.out.println("传递参数错误:" + key);
+					e.printStackTrace();
+				}
+				AbsTestCase tmp = this.from;
+				while (!tmp.name.equals(caseName)) {
+					tmp = tmp.from;
+					if (tmp == null) {
+						try {
+							throw new Exception("并没有找到对应的case点");
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					}
+				}
+				String data = tmp.caseResult.getData();
+				JSONObject json = JSONObject.parseObject(data);
+				String par = json.getString(trans);
+				if (par == null) {
+					try {
+						throw new Exception("该case点对应参数为空");
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+				param.remove(key);
+				param.put(trans, par);
+			}
+		}
+		return param;
 	}
 
 	public Map<String, String> getCaseInparam() {
@@ -56,7 +115,7 @@ public abstract class AbsTestCase {
 	}
 
 	public void setCaseInparam(Map<String, String> caseInparam) {
-		this.caseInparam = caseInparam;
+		this.caseInparam = getTransParam(caseInparam);
 	}
 
 	public Map<String, String> getCaseExparam() {
@@ -64,7 +123,7 @@ public abstract class AbsTestCase {
 	}
 
 	public void setCaseExparam(Map<String, String> caseExparam) {
-		this.caseExparam = caseExparam;
+		this.caseExparam = getTransParam(caseExparam);
 	}
 
 	public Map<String, String> getCaseOutparam() {
@@ -81,6 +140,14 @@ public abstract class AbsTestCase {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public CheckResult getCheckResult() {
+		return checkResult;
+	}
+
+	public void setCheckResult(CheckResult checkResult) {
+		this.checkResult = checkResult;
 	}
 
 }

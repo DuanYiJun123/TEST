@@ -12,7 +12,6 @@ public class ProcessGroup {
 
 	String name;
 	Map<String, ProcessChain> chains;
-	boolean isSuccess;
 
 	GroupBefore groupBefore;
 	GroupAfter groupAfter;
@@ -50,10 +49,9 @@ public class ProcessGroup {
 	}
 
 	public boolean isSuccess() {
-		this.isSuccess = chains.values().stream().allMatch(chain -> {
+		return chains.values().stream().allMatch(chain -> {
 			return chain.isSuccess;
 		});
-		return this.isSuccess;
 	}
 
 	public GroupBefore getGroupBefore() {

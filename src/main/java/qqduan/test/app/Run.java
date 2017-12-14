@@ -1,7 +1,5 @@
 package qqduan.test.app;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -20,7 +18,7 @@ public class Run {
 	@SuppressWarnings("unchecked")
 	private Run() {
 		this.list = new ArrayList<>();
-		Element cases = XmlUtil.get(FileUtil.getAppRoot()+"/src/main/java/config.xml").element("process");
+		Element cases = XmlUtil.get(FileUtil.getAppRoot() + "/src/main/java/config.xml").element("process");
 		Iterator<Element> it = cases.elementIterator();
 		while (it.hasNext()) {
 			Element ele = it.next();
@@ -35,15 +33,10 @@ public class Run {
 			String next = iter.next();
 			try {
 				Class<?> clz = getClass().forName(next);
-				AbsTestProcess newInstance =(AbsTestProcess)clz.newInstance();
+				AbsTestProcess newInstance = (AbsTestProcess) clz.newInstance();
 				newInstance.test();
-//				Class<?> clz = getClass().getClassLoader().loadClass(next);
-//				Constructor<?> constructor = clz.getDeclaredConstructor();
-//				constructor.setAccessible(true);
-//				AbsTestProcess newInstance = (AbsTestProcess) constructor.newInstance();
-//				newInstance.test();
-			} catch (ClassNotFoundException | SecurityException | InstantiationException
-					| IllegalAccessException | IllegalArgumentException e) {
+			} catch (ClassNotFoundException | SecurityException | InstantiationException | IllegalAccessException
+					| IllegalArgumentException e) {
 				e.printStackTrace();
 			}
 		}
