@@ -9,6 +9,7 @@ import java.util.List;
 import org.dom4j.Element;
 
 import qqduan.test.core.AbsTestProcess;
+import qqduan.test.util.FileUtil;
 import qqduan.test.util.XmlUtil;
 
 public class Run {
@@ -19,7 +20,7 @@ public class Run {
 	@SuppressWarnings("unchecked")
 	private Run() {
 		this.list = new ArrayList<>();
-		Element cases = XmlUtil.get("/test/src/main/java/config.xml").element("process");
+		Element cases = XmlUtil.get(FileUtil.getAppRoot()+"/src/main/java/config.xml").element("process");
 		Iterator<Element> it = cases.elementIterator();
 		while (it.hasNext()) {
 			Element ele = it.next();
@@ -33,13 +34,16 @@ public class Run {
 		while (iter.hasNext()) {
 			String next = iter.next();
 			try {
-				Class<?> clz = getClass().getClassLoader().loadClass(next);
-				Constructor<?> constructor = clz.getDeclaredConstructor(String.class);
-				constructor.setAccessible(true);
-				AbsTestProcess newInstance = (AbsTestProcess) constructor.newInstance(clz.getSimpleName());
+				Class<?> clz = getClass().forName(next);
+				AbsTestProcess newInstance =(AbsTestProcess)clz.newInstance();
 				newInstance.test();
-			} catch (ClassNotFoundException | NoSuchMethodException | SecurityException | InstantiationException
-					| IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+//				Class<?> clz = getClass().getClassLoader().loadClass(next);
+//				Constructor<?> constructor = clz.getDeclaredConstructor();
+//				constructor.setAccessible(true);
+//				AbsTestProcess newInstance = (AbsTestProcess) constructor.newInstance();
+//				newInstance.test();
+			} catch (ClassNotFoundException | SecurityException | InstantiationException
+					| IllegalAccessException | IllegalArgumentException e) {
 				e.printStackTrace();
 			}
 		}

@@ -60,16 +60,18 @@ public class ProcessGroup {
 		return groupBefore;
 	}
 
-	public void setGroupBefore(GroupBefore groupBefore) {
+	public ProcessGroup setGroupBefore(GroupBefore groupBefore) {
 		this.groupBefore = groupBefore;
+		return this;
 	}
 
 	public GroupAfter getGroupAfter() {
 		return groupAfter;
 	}
 
-	public void setGroupAfter(GroupAfter groupAfter) {
+	public ProcessGroup setGroupAfter(GroupAfter groupAfter) {
 		this.groupAfter = groupAfter;
+		return this;
 	}
 
 }

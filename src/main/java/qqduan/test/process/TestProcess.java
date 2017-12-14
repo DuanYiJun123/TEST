@@ -12,11 +12,11 @@ import qqduan.test.interfac.ChainBefore;
 import qqduan.test.interfac.GroupAfter;
 import qqduan.test.interfac.GroupBefore;
 
-public class TestProcess extends AbsTestProcess {
+public class TestProcess extends AbsTestProcess implements GroupBefore{
 
 	@Override
 	public ProcessGroup tmplates() {
-		return new ProcessGroup(new ProcessChain("chain1", new TestCase("case1").afterCase(new TestCase2("case2"))));
+		return new ProcessGroup(new ProcessChain("chain1", new TestCase("case1").afterCase(new TestCase2("case2")))).setGroupBefore(this);
 	}
 
 	@Override
@@ -33,6 +33,12 @@ public class TestProcess extends AbsTestProcess {
 		chainParam.put("caseName", caseInparam);
 		groupInparam.put("chainName", chainParam);
 
+	}
+
+	@Override
+	public void groupBefore(ProcessGroup processGroup) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

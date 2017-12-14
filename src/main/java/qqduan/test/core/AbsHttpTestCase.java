@@ -29,12 +29,13 @@ public class AbsHttpTestCase extends AbsTestCase {
 		String result;
 		switch (requettype) {
 		case keyValue:
-			result = HttpClientUtil.sendPostRequestByJava("http://" + Defines.IP + porttype.port + this.mapping,
+			result = HttpClientUtil.sendPostRequestByJava("http://" + Defines.IP +":"+ porttype.port + this.mapping,
 					super.getCaseInparam());
 			if (result != null) {
-				super.caseResult.setData(result);
+				
+				super.caseResult=new CaseResult(result,super.getName());
 				JSONObject json = JSONObject.parseObject(result);
-				if (json.getInteger(result).equals(0) && json.getString(result).equals("0")) {
+				if (json.getInteger("result").equals(0) || json.getString("result").equals("0")) {
 					return true;
 				}
 			}

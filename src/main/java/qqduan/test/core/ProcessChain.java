@@ -30,10 +30,11 @@ public class ProcessChain {
 			chainBefore.chainBefore(this);
 		}
 		
-		setChainData(this.chainExparam, this.chainExparam);
+		
 		AbsTestCase tmp = this.head;
 		while (tmp != null) {
 			success.add(tmp.test());
+			tmp=tmp.to;
 		}
 		if(chainAfter!=null){
 			chainAfter.chainAfter(this);
@@ -53,7 +54,7 @@ public class ProcessChain {
 		while (tmp != null) {
 			String name = tmp.getName();
 			tmp.setCaseInparam(chainInparam.get(name));
-			tmp.setCaseExparam(chainExparam.get(name));
+			//tmp.setCaseExparam(chainExparam.get(name));
 			tmp = tmp.to;
 		}
 	}
@@ -62,16 +63,18 @@ public class ProcessChain {
 		return chainAfter;
 	}
 
-	public void setChainAfter(ChainAfter chainAfter) {
+	public ProcessChain setChainAfter(ChainAfter chainAfter) {
 		this.chainAfter = chainAfter;
+		return this;
 	}
 
 	public ChainBefore getChainBefore() {
 		return chainBefore;
 	}
 
-	public void setChainBefore(ChainBefore chainBefore) {
+	public ProcessChain setChainBefore(ChainBefore chainBefore) {
 		this.chainBefore = chainBefore;
+		return this;
 	}
 	
 }

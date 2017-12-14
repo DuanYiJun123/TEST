@@ -5,8 +5,8 @@
 	
 	
 	<process>
-		<group name="qqduan.test.process.TestProcess" skip="false"></group> 
-		<group name="qqduan.test.process.TestProcess" skip="false"></group> 
+		<group name="qqduan.test.process.TestProcess" skip="true"></group> 
+		<group name="qqduan.test.process.ProcessDetectFace" skip="false"></group> 
 	
 	
 	</process>

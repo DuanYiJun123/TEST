@@ -17,6 +17,15 @@ import java.util.List;
  */
 public class FileUtil {
 
+	public static String getAppRoot() {
+		try {
+		return new File("").getCanonicalPath();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return "";
+	}
+	
 	public static void fileCopy(String resource, String target) {
 		File folder = new File(target.substring(0, target.lastIndexOf(File.separator)));
 		if (!folder.exists()) {
