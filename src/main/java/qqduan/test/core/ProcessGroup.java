@@ -7,6 +7,7 @@ import java.util.Map.Entry;
 
 import qqduan.test.interfac.GroupAfter;
 import qqduan.test.interfac.GroupBefore;
+import qqduan.test.logmodel.LogService;
 
 public class ProcessGroup {
 
@@ -47,6 +48,7 @@ public class ProcessGroup {
 		if (this.groupAfter != null) {
 			groupAfter.groupAfter(this);
 		}
+		LogService.log(this);
 	}
 
 	public boolean isSuccess() {

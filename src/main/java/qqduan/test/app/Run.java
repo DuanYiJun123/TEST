@@ -1,39 +1,48 @@
 package qqduan.test.app;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import org.dom4j.Element;
 
 import qqduan.test.core.AbsTestProcess;
+import qqduan.test.logmodel.LogService;
 import qqduan.test.util.FileUtil;
 import qqduan.test.util.XmlUtil;
 
 public class Run {
-	private List<String> list;
+	private Map<String,String> map;
 
 	public static Run instance = new Run();
 
 	@SuppressWarnings("unchecked")
 	private Run() {
-		this.list = new ArrayList<>();
+
+		clearLog();
+
+		this.map = new HashMap<>();
 		Element cases = XmlUtil.get(FileUtil.getAppRoot() + "/src/main/java/config.xml").element("process");
 		Iterator<Element> it = cases.elementIterator();
 		while (it.hasNext()) {
 			Element ele = it.next();
 			if (ele.attribute("skip").getData().toString().equals("false")) {
 				String name = ele.attribute("name").getData().toString();
-				list.add(name);
+				String logType = ele.attribute("logType").getData().toString();
+				map.put(name,logType);
 			}
 		}
 
-		Iterator<String> iter = list.iterator();
+		Iterator<Entry<String, String>> iter = map.entrySet().iterator();
 		while (iter.hasNext()) {
-			String next = iter.next();
+			Entry<String, String> next = iter.next();
 			try {
-				Class<?> clz = getClass().forName(next);
+				Class<?> clz = getClass().forName(next.getKey());
 				AbsTestProcess newInstance = (AbsTestProcess) clz.newInstance();
+				LogService.startLog(next.getValue());
 				newInstance.test();
 			} catch (ClassNotFoundException | SecurityException | InstantiationException | IllegalAccessException
 					| IllegalArgumentException e) {
@@ -46,4 +55,17 @@ public class Run {
 		return instance;
 	}
 
+	public void clearLog() {
+		File file = new File(FileUtil.getAppRoot() + File.separator + "log");
+		if (!file.exists() || !file.isDirectory()) {
+			try {
+				throw new RuntimeException("no log folder");
+			} catch (Exception e) {
+			}
+			File[] listFiles = file.listFiles();
+			for (File tmp : listFiles) {
+				tmp.delete();
+			}
+		}
+	}
 }

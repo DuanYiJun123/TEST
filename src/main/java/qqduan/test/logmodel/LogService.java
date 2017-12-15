@@ -2,7 +2,6 @@ package qqduan.test.logmodel;
 
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
@@ -30,13 +29,12 @@ public class LogService {
 			case "all":
 				LogService.logtype = LogType.All;
 				break;
-
 			case "onlyfail":
 				LogService.logtype = LogType.Only_fail;
-
+				break;
 			case "none":
 				LogService.logtype = LogType.None;
-
+				break;
 			default:
 				LogService.logtype = LogType.None;
 				break;
@@ -66,9 +64,9 @@ public class LogService {
 				Entry<String, ProcessChain> next = iter.next();
 				AbsTestCase tmp = next.getValue().getHead();
 				while (tmp != null) {
-					File file = new File(FileUtil.getAppRoot() + File.separator + (isSuccess ? "success" : "fail")
-							+ File.separator + group.getName() + File.separator + next.getKey() + File.separator
-							+ tmp.getName() + ".txt");
+					File file = new File(FileUtil.getAppRoot() + File.separator + "log" + File.separator
+							+ (isSuccess ? "success" : "fail") + File.separator + group.getName() + File.separator
+							+ next.getKey() + File.separator + tmp.getName() + ".txt");
 
 					try (BufferedWriter writer = new BufferedWriter(
 							new OutputStreamWriter(new FileOutputStream(file)))) {
@@ -91,5 +89,6 @@ public class LogService {
 				}
 			}
 		}
+		logEnd();
 	}
 }

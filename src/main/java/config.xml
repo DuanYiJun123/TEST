@@ -5,8 +5,8 @@
 	<logCount>1</logCount>
 
 	<process>
-		<group name="qqduan.test.process.TestProcess" skip="true"></group> 
-		<group name="qqduan.test.process.ProcessDetectFace" skip="false"></group> 
+		<group name="qqduan.test.process.TestProcess" skip="true" logType="all"></group> 
+		<group name="qqduan.test.process.ProcessDetectFace" skip="false" logType="onlyfail"></group> 
 	</process>
 
 
