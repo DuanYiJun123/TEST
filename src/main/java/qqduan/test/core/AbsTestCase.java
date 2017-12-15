@@ -150,4 +150,27 @@ public abstract class AbsTestCase {
 		this.checkResult = checkResult;
 	}
 
+	public AbsTestCase getFrom() {
+		return from;
+	}
+
+	public void setFrom(AbsTestCase from) {
+		this.from = from;
+	}
+
+	public AbsTestCase getTo() {
+		return to;
+	}
+
+	public void setTo(AbsTestCase to) {
+		this.to = to;
+	}
+
+	public CaseResult getCaseResult() {
+		return caseResult;
+	}
+
+	public void setCaseResult(CaseResult caseResult) {
+		this.caseResult = caseResult;
+	}
 }

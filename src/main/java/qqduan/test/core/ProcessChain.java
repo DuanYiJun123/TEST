@@ -81,4 +81,20 @@ public class ProcessChain {
 		return this;
 	}
 
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public AbsTestCase getHead() {
+		return head;
+	}
+
+	public void setHead(AbsTestCase head) {
+		this.head = head;
+	}
+	
 }

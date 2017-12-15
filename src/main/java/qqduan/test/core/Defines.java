@@ -4,6 +4,8 @@ import qqduan.test.util.FileUtil;
 import qqduan.test.util.XmlUtil;
 
 public class Defines {
-	
-	public static String IP=XmlUtil.get(FileUtil.getAppRoot()+"/src/main/java/config.xml").element("ip").getStringValue();
+	private static final String CONFIGPATH = FileUtil.getAppRoot() + "/src/main/java/config.xml";
+	public static String IP = XmlUtil.get(CONFIGPATH).element("ip").getStringValue();
+	public static final int LOG_COUNT = Integer.valueOf(XmlUtil.get(CONFIGPATH).element("logCount").getStringValue());
+
 }

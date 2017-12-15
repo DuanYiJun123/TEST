@@ -10,7 +10,8 @@ import qqduan.test.interfac.GroupBefore;
 
 public class ProcessGroup {
 
-	String name;
+	private String name;
+	public boolean isSuccess=false;
 	Map<String, ProcessChain> chains;
 
 	GroupBefore groupBefore;
@@ -49,9 +50,10 @@ public class ProcessGroup {
 	}
 
 	public boolean isSuccess() {
-		return chains.values().stream().allMatch(chain -> {
+		this.isSuccess= chains.values().stream().allMatch(chain -> {
 			return chain.isSuccess;
 		});
+		return isSuccess;
 	}
 
 	public GroupBefore getGroupBefore() {
@@ -72,4 +74,19 @@ public class ProcessGroup {
 		return this;
 	}
 
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public Map<String, ProcessChain> getChains() {
+		return chains;
+	}
+
+	public void setChains(Map<String, ProcessChain> chains) {
+		this.chains = chains;
+	}
 }
