@@ -32,6 +32,7 @@ public abstract class AbsTestCase {
 	}
 
 	public void ontest() {
+		System.out.println("测试点："+name);
 		if (caseBefore != null) {
 			caseBefore.caseBefore(this);
 		}
@@ -53,7 +54,7 @@ public abstract class AbsTestCase {
 	public AbsTestCase afterCase(AbsTestCase tmp) {
 		this.to = tmp;
 		tmp.from = this;
-		return tmp;
+		return this;
 	}
 
 	public ProcessChain commitChain() {

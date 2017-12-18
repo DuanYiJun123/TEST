@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import qqduan.test.cases.DetectFaceTestCase;
+import qqduan.test.cases.FeatureTestCase;
 import qqduan.test.core.AbsTestProcess;
 import qqduan.test.core.ProcessChain;
 import qqduan.test.core.ProcessGroup;
@@ -18,8 +19,8 @@ public class ProcessDetectFace extends AbsTestProcess implements GroupBefore, Gr
 
 	@Override
 	public ProcessGroup tmplates() {
-		return new ProcessGroup(new ProcessChain("DetectFaceChain", new DetectFaceTestCase("DetectFaceTestCase"))
-				.setChainBefore(this).setChainAfter(this)).setGroupBefore(this).setGroupAfter(this);
+		return new ProcessGroup(new ProcessChain("DetectFaceChain",
+				new DetectFaceTestCase("DetectFaceTestCase").afterCase(new FeatureTestCase("FeatureTestCase"))));
 	}
 
 	@SuppressWarnings("deprecation")
@@ -38,11 +39,22 @@ public class ProcessDetectFace extends AbsTestProcess implements GroupBefore, Gr
 		caseInparam.put("mode", "false");
 
 		chainInparam.put("DetectFaceTestCase", caseInparam);
-		groupInparam.put("DetectFaceChain", chainInparam);
 
 		caseExparam.put("result", "0");
 		chainExparam.put("DetectFaceTestCase", caseExparam);
+
+		Map<String, String> featureInparam = new HashMap<>();
+		Map<String, String> featureExparam = new HashMap<>();
+
+		featureInparam.put("img",
+				URLEncoder.encode(FileUtil.FileToBase64("E:/test-collection/face/field_for_recog/1.jpg")));
+		featureExparam.put("result", "0");
+
+		chainInparam.put("FeatureTestCase", featureInparam);
+		chainExparam.put("FeatureTestCase", featureExparam);
+
 		groupExparam.put("DetectFaceChain", chainExparam);
+		groupInparam.put("DetectFaceChain", chainInparam);
 	}
 
 	@Override

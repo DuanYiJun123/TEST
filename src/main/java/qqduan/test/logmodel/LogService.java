@@ -67,6 +67,9 @@ public class LogService {
 					File file = new File(FileUtil.getAppRoot() + File.separator + "log" + File.separator
 							+ (isSuccess ? "success" : "fail") + File.separator + group.getName() + File.separator
 							+ next.getKey() + File.separator + tmp.getName() + ".txt");
+					if(!file.exists()){
+						file.getParentFile().mkdirs();
+					}
 
 					try (BufferedWriter writer = new BufferedWriter(
 							new OutputStreamWriter(new FileOutputStream(file)))) {

@@ -6,7 +6,7 @@
 
 	<process>
 		<group name="qqduan.test.process.TestProcess" skip="true" logType="all"></group> 
-		<group name="qqduan.test.process.ProcessDetectFace" skip="false" logType="onlyfail"></group> 
+		<group name="qqduan.test.process.ProcessDetectFace" skip="false" logType="all"></group> 
 	</process>
 
 

@@ -15,7 +15,7 @@ import qqduan.test.util.FileUtil;
 import qqduan.test.util.XmlUtil;
 
 public class Run {
-	private Map<String,String> map;
+	private Map<String, String> map;
 
 	public static Run instance = new Run();
 
@@ -32,7 +32,7 @@ public class Run {
 			if (ele.attribute("skip").getData().toString().equals("false")) {
 				String name = ele.attribute("name").getData().toString();
 				String logType = ele.attribute("logType").getData().toString();
-				map.put(name,logType);
+				map.put(name, logType);
 			}
 		}
 
@@ -62,10 +62,10 @@ public class Run {
 				throw new RuntimeException("no log folder");
 			} catch (Exception e) {
 			}
-			File[] listFiles = file.listFiles();
-			for (File tmp : listFiles) {
-				tmp.delete();
-			}
+		}
+		File[] listFiles = file.listFiles();
+		for (File tmp : listFiles) {
+			FileUtil.deleteFileAll(tmp, true);
 		}
 	}
 }

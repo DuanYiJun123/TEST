@@ -44,6 +44,7 @@ public class ProcessGroup {
 			Entry<String, ProcessChain> chain = it.next();
 			ProcessChain value = chain.getValue();
 			value.ontest();
+			this.isSuccess=this.isSuccess();
 		}
 		if (this.groupAfter != null) {
 			groupAfter.groupAfter(this);

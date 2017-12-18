@@ -36,7 +36,7 @@ public abstract class AbsTestProcess {
 				group.addData(chainName, chainInparam, chainExparam);
 			}
 			group.ontest();
-			System.out.println("测试结果:" + this.group.isSuccess());
+			System.out.println("测试结果:" + this.group.isSuccess);
 		}
 	}
 }
