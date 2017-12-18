@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import qqduan.test.interfac.GroupAdapter;
 import qqduan.test.interfac.GroupAfter;
 import qqduan.test.interfac.GroupBefore;
 import qqduan.test.logmodel.LogService;
@@ -17,6 +18,7 @@ public class ProcessGroup {
 
 	GroupBefore groupBefore;
 	GroupAfter groupAfter;
+	GroupAdapter adapter;
 
 	public void addData(String chainName, Map<String, Map<String, String>> chainInparam,
 			Map<String, Map<String, String>> chainExparam) {
@@ -39,13 +41,14 @@ public class ProcessGroup {
 		if (this.groupBefore != null) {
 			groupBefore.groupBefore(this);
 		}
-		Iterator<Entry<String, ProcessChain>> it = chains.entrySet().iterator();
-		while (it.hasNext()) {
-			Entry<String, ProcessChain> chain = it.next();
-			ProcessChain value = chain.getValue();
-			value.ontest();
-			this.isSuccess=this.isSuccess();
+		
+		if(adapter==null){
+			this.adapter=new DefaultGroupAdapter();
 		}
+		
+		this.adapter.ontest(this);
+		
+		this.isSuccess=this.isSuccess();
 		if (this.groupAfter != null) {
 			groupAfter.groupAfter(this);
 		}
@@ -91,5 +94,18 @@ public class ProcessGroup {
 
 	public void setChains(Map<String, ProcessChain> chains) {
 		this.chains = chains;
+	}
+	
+	public class DefaultGroupAdapter implements GroupAdapter{
+		@Override
+		public void ontest(ProcessGroup group) {
+			Iterator<Entry<String, ProcessChain>> it = chains.entrySet().iterator();
+			while (it.hasNext()) {
+				Entry<String, ProcessChain> chain = it.next();
+				ProcessChain value = chain.getValue();
+				value.ontest();
+			}
+		}
+		
 	}
 }
