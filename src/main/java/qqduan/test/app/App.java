@@ -9,6 +9,6 @@ public class App
 {
     public static void main( String[] args )
     {
-       Run.newInstance();
+       Run.newInstance().TestService();
     }
 }

@@ -22,20 +22,17 @@ public class Run {
 	@SuppressWarnings("unchecked")
 	private Run() {
 
+	}
+
+	protected void TestService() {
 		clearLog();
 
-		this.map = new HashMap<>();
-		Element cases = XmlUtil.get(FileUtil.getAppRoot() + "/src/main/java/config.xml").element("process");
-		Iterator<Element> it = cases.elementIterator();
-		while (it.hasNext()) {
-			Element ele = it.next();
-			if (ele.attribute("skip").getData().toString().equals("false")) {
-				String name = ele.attribute("name").getData().toString();
-				String logType = ele.attribute("logType").getData().toString();
-				map.put(name, logType);
-			}
-		}
+		readXml();
 
+		getProcess();
+	}
+
+	private void getProcess() {
 		Iterator<Entry<String, String>> iter = map.entrySet().iterator();
 		while (iter.hasNext()) {
 			Entry<String, String> next = iter.next();
@@ -51,6 +48,20 @@ public class Run {
 		}
 	}
 
+	private void readXml() {
+		this.map = new HashMap<>();
+		Element cases = XmlUtil.get(FileUtil.getAppRoot() + "/src/main/java/config.xml").element("process");
+		Iterator<Element> it = cases.elementIterator();
+		while (it.hasNext()) {
+			Element ele = it.next();
+			if (ele.attribute("skip").getData().toString().equals("false")) {
+				String name = ele.attribute("name").getData().toString();
+				String logType = ele.attribute("logType").getData().toString();
+				map.put(name, logType);
+			}
+		}
+	}
+
 	public static Run newInstance() {
 		return instance;
 	}
@@ -61,6 +72,7 @@ public class Run {
 			try {
 				throw new RuntimeException("no log folder");
 			} catch (Exception e) {
+				file.mkdir();
 			}
 		}
 		File[] listFiles = file.listFiles();
