@@ -37,6 +37,7 @@ public class Run {
 		while (iter.hasNext()) {
 			Entry<String, String> next = iter.next();
 			try {
+				@SuppressWarnings("static-access")
 				Class<?> clz = getClass().forName(next.getKey());
 				AbsTestProcess newInstance = (AbsTestProcess) clz.newInstance();
 				LogService.startLog(next.getValue());
@@ -51,6 +52,7 @@ public class Run {
 	private void readXml() {
 		this.map = new HashMap<>();
 		Element cases = XmlUtil.get(FileUtil.getAppRoot() + "/src/main/java/config.xml").element("process");
+		@SuppressWarnings("unchecked")
 		Iterator<Element> it = cases.elementIterator();
 		while (it.hasNext()) {
 			Element ele = it.next();

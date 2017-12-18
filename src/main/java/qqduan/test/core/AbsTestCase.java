@@ -32,6 +32,7 @@ public abstract class AbsTestCase {
 	}
 
 	public void ontest() {
+		long start=System.currentTimeMillis();
 		System.out.println("测试点："+name);
 		if (caseBefore != null) {
 			caseBefore.caseBefore(this);
@@ -46,7 +47,8 @@ public abstract class AbsTestCase {
 		if (caseAfter != null) {
 			caseAfter.caseAfter(this);
 		}
-
+		long end=System.currentTimeMillis();
+		System.out.println("耗时"+(end-start)+"ms");
 	}
 
 	abstract boolean test();

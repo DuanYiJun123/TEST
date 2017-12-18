@@ -35,8 +35,10 @@ public abstract class AbsTestProcess {
 				Map<String, Map<String, String>> chainExparam = groupExparam.get(chainName);
 				group.addData(chainName, chainInparam, chainExparam);
 			}
+			long start=System.currentTimeMillis();
 			group.ontest();
-			System.out.println("测试结果:" + this.group.isSuccess);
+			long end=System.currentTimeMillis();
+			System.out.println("测试结果:" + this.group.isSuccess+"  总共耗时"+(end-start)+"ms");
 		}
 	}
 }
