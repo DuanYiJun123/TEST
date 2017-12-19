@@ -81,7 +81,7 @@
 				<configuration>
 					<archive>
 						<manifest>
-							<mainClass>com.cloudwalk.test.app.App</mainClass>
+							<mainClass>qqduan.test.app.App</mainClass>
 						</manifest>
 					</archive>
 					<descriptors>
