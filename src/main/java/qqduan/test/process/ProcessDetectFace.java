@@ -21,7 +21,7 @@ public class ProcessDetectFace extends AbsTestProcess implements GroupBefore, Gr
 	@Override
 	public ProcessGroup tmplates() {
 		return new ProcessGroup(new ProcessChain("DetectFaceChain",
-				new DetectFaceTestCase("DetectFaceTestCase").afterCase(new FeatureTestCase("FeatureTestCase").afterCase(new FaceCompareTestCase("FaceCompareTestCase")))));
+				new DetectFaceTestCase("DetectFaceTestCase").afterCase(new FeatureTestCase("FeatureTestCase").afterCase(new FaceCompareTestCase("FaceCompareTestCase")))).setChainBefore(this));
 	}
 
 	@SuppressWarnings("deprecation")

@@ -32,8 +32,8 @@ public abstract class AbsTestCase {
 	}
 
 	public void ontest() {
-		long start=System.currentTimeMillis();
-		System.out.println("测试点："+name);
+		long start = System.currentTimeMillis();
+		System.out.println("测试点：" + name);
 		if (caseBefore != null) {
 			caseBefore.caseBefore(this);
 		}
@@ -47,8 +47,8 @@ public abstract class AbsTestCase {
 		if (caseAfter != null) {
 			caseAfter.caseAfter(this);
 		}
-		long end=System.currentTimeMillis();
-		System.out.println("耗时"+(end-start)+"ms");
+		long end = System.currentTimeMillis();
+		System.out.println("耗时" + (end - start) + "ms");
 	}
 
 	abstract boolean test();
@@ -67,7 +67,7 @@ public abstract class AbsTestCase {
 		return new ProcessChain(tmp.name, tmp);
 	}
 
-	public Map<String,String> getTransParam(Map<String, String> param) {
+	public Map<String, String> getTransParam(Map<String, String> param) {
 		Iterator<Entry<String, String>> iter = param.entrySet().iterator();
 		while (iter.hasNext()) {
 			Entry<String, String> next = iter.next();
@@ -175,5 +175,15 @@ public abstract class AbsTestCase {
 
 	public void setCaseResult(CaseResult caseResult) {
 		this.caseResult = caseResult;
+	}
+
+	public AbsTestCase setCaseBefore(CaseBefore before) {
+		this.caseBefore = before;
+		return this;
+	}
+
+	public AbsTestCase setCaseAfter(CaseAfter after) {
+		this.caseAfter = after;
+		return this;
 	}
 }

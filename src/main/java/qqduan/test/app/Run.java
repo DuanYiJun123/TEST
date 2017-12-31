@@ -51,7 +51,7 @@ public class Run {
 
 	private void readXml() {
 		this.map = new HashMap<>();
-		Element cases = XmlUtil.get(FileUtil.getAppRoot() + "/src/main/java/config.xml").element("process");
+		Element cases = XmlUtil.get(FileUtil.getAppRoot()+File.separator+"config.xml").element("process");
 		@SuppressWarnings("unchecked")
 		Iterator<Element> it = cases.elementIterator();
 		while (it.hasNext()) {
