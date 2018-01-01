@@ -7,21 +7,23 @@ import java.util.Map;
 import qqduan.test.cases.DetectFaceTestCase;
 import qqduan.test.cases.FaceCompareTestCase;
 import qqduan.test.cases.FeatureTestCase;
+import qqduan.test.core.AbsTestCase;
 import qqduan.test.core.AbsTestProcess;
 import qqduan.test.core.ProcessChain;
 import qqduan.test.core.ProcessGroup;
+import qqduan.test.interfac.CaseBefore;
 import qqduan.test.interfac.ChainAfter;
 import qqduan.test.interfac.ChainBefore;
 import qqduan.test.interfac.GroupAfter;
 import qqduan.test.interfac.GroupBefore;
 import qqduan.test.util.FileUtil;
 
-public class ProcessDetectFace extends AbsTestProcess implements GroupBefore, GroupAfter, ChainBefore, ChainAfter {
+public class ProcessDetectFace extends AbsTestProcess implements CaseBefore,GroupBefore, GroupAfter, ChainBefore, ChainAfter {
 
 	@Override
 	public ProcessGroup tmplates() {
 		return new ProcessGroup(new ProcessChain("DetectFaceChain",
-				new DetectFaceTestCase("DetectFaceTestCase").afterCase(new FeatureTestCase("FeatureTestCase").afterCase(new FaceCompareTestCase("FaceCompareTestCase")))).setChainBefore(this));
+				new DetectFaceTestCase("DetectFaceTestCase").afterCase(new FeatureTestCase("FeatureTestCase").afterCase(new FaceCompareTestCase("FaceCompareTestCase"))).setCaseBefore(this)).setChainBefore(this));
 	}
 
 	@SuppressWarnings("deprecation")
@@ -85,6 +87,11 @@ public class ProcessDetectFace extends AbsTestProcess implements GroupBefore, Gr
 	@Override
 	public void chainAfter(ProcessChain chain) {
 		System.out.println("chainAfter");
+	}
+
+	@Override
+	public void caseBefore(AbsTestCase test) {
+		System.out.println("caseBefore");
 	}
 
 }
