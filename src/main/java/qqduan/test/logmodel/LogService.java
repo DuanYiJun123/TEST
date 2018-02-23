@@ -47,9 +47,11 @@ public class LogService {
 	}
 
 	public static void log(ProcessGroup group) {
-		THREADPOOL.execute(() -> {
-			mlog(group);
-		});
+		for (int i = 0; i < Defines.LOG_COUNT; i++) {
+			THREADPOOL.execute(() -> {
+				mlog(group);
+			});
+		}
 	}
 
 	public static void mlog(ProcessGroup group) {
@@ -67,7 +69,7 @@ public class LogService {
 					File file = new File(FileUtil.getAppRoot() + File.separator + "log" + File.separator
 							+ (isSuccess ? "success" : "fail") + File.separator + group.getName() + File.separator
 							+ next.getKey() + File.separator + tmp.getName() + ".txt");
-					if(!file.exists()){
+					if (!file.exists()) {
 						file.getParentFile().mkdirs();
 					}
 

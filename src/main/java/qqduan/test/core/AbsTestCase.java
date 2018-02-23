@@ -118,7 +118,7 @@ public abstract class AbsTestCase {
 	}
 
 	public void setCaseInparam(Map<String, String> caseInparam) {
-		this.caseInparam = getTransParam(caseInparam);
+		this.caseInparam=getTransParam(caseInparam);
 	}
 
 	public Map<String, String> getCaseExparam() {
@@ -126,7 +126,7 @@ public abstract class AbsTestCase {
 	}
 
 	public void setCaseExparam(Map<String, String> caseExparam) {
-		this.caseExparam = getTransParam(caseExparam);
+		this.caseExparam=getTransParam(caseExparam);
 	}
 
 	public Map<String, String> getCaseOutparam() {

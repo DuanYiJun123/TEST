@@ -10,6 +10,9 @@ import qqduan.test.interfac.GroupAfter;
 import qqduan.test.interfac.GroupBefore;
 import qqduan.test.logmodel.LogService;
 
+/*
+ * 过程组类，包含了一条或多条过程链，且含有模板适配器，可以自定义链执行
+ */
 public class ProcessGroup {
 
 	private String name;
@@ -96,6 +99,7 @@ public class ProcessGroup {
 		this.chains = chains;
 	}
 	
+	//默认组适配器，如有需要，可以进行自定义
 	public class DefaultGroupAdapter implements GroupAdapter{
 		@Override
 		public void ontest(ProcessGroup group) {

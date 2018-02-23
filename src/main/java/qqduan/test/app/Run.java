@@ -1,7 +1,6 @@
 package qqduan.test.app;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -19,9 +18,7 @@ public class Run {
 
 	public static Run instance = new Run();
 
-	@SuppressWarnings("unchecked")
 	private Run() {
-
 	}
 
 	protected void TestService() {
@@ -37,8 +34,7 @@ public class Run {
 		while (iter.hasNext()) {
 			Entry<String, String> next = iter.next();
 			try {
-				@SuppressWarnings("static-access")
-				Class<?> clz = getClass().forName(next.getKey());
+				Class<?> clz = Class.forName(next.getKey());
 				AbsTestProcess newInstance = (AbsTestProcess) clz.newInstance();
 				LogService.startLog(next.getValue());
 				newInstance.test();

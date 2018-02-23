@@ -6,7 +6,9 @@ import java.util.Map;
 
 import qqduan.test.interfac.ChainAfter;
 import qqduan.test.interfac.ChainBefore;
-
+/*
+ * 测试链，一条测试链由若干测试点连接起来的链表组成
+ */
 public class ProcessChain {
 	String name;
 	AbsTestCase head;
