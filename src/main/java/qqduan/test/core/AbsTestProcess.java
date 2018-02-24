@@ -4,7 +4,9 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
-
+/*
+ * 抽象测试过程类
+ */
 public abstract class AbsTestProcess {
 	private String name;
 	ProcessGroup group;

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <root>
-	<ip>192.168.10.140</ip>
-	<port>7010</port>
+	<ip>192.168.10.104</ip>
 	<logCount>1</logCount>
 
 	<process>

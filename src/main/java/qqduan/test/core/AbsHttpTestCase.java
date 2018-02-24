@@ -9,7 +9,9 @@ import qqduan.test.enu.PortType;
 import qqduan.test.enu.RequestType;
 import qqduan.test.interfac.CheckResult;
 import qqduan.test.util.HttpClientUtil;
-
+/*
+ * 抽象http请求测试类，凡是http请求的测试用例都需要继承此类
+ */
 public class AbsHttpTestCase extends AbsTestCase implements CheckResult {
 
 	String mapping;

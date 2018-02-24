@@ -1,5 +1,6 @@
 package qqduan.test.core;
 
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -10,12 +11,16 @@ import qqduan.test.interfac.CaseAfter;
 import qqduan.test.interfac.CaseBefore;
 import qqduan.test.interfac.CheckResult;
 
+/*
+ * 抽象测试点类
+ */
 public abstract class AbsTestCase {
 
 	private String name;
 	private Map<String, String> caseInparam;
 	private Map<String, String> caseExparam;
 	private Map<String, String> caseOutparam;
+	private Map<String, String> caseTransparam;
 	boolean isSuccess;
 	CaseBefore caseBefore;
 	CaseAfter caseAfter;
@@ -27,6 +32,9 @@ public abstract class AbsTestCase {
 
 	public AbsTestCase(String name) {
 		super();
+		this.caseInparam = new HashMap<>();
+		this.caseExparam = new HashMap<>();
+		this.caseTransparam = new HashMap<>();
 		this.name = name;
 		this.isSuccess = false;
 	}
@@ -118,7 +126,11 @@ public abstract class AbsTestCase {
 	}
 
 	public void setCaseInparam(Map<String, String> caseInparam) {
-		this.caseInparam=getTransParam(caseInparam);
+		this.caseInparam.putAll(caseInparam);
+		this.caseTransparam = getTransParam(caseInparam);
+		if (caseTransparam != null) {
+			this.caseInparam.putAll(caseTransparam);
+		}
 	}
 
 	public Map<String, String> getCaseExparam() {
@@ -126,7 +138,7 @@ public abstract class AbsTestCase {
 	}
 
 	public void setCaseExparam(Map<String, String> caseExparam) {
-		this.caseExparam=getTransParam(caseExparam);
+		this.caseExparam.putAll(caseExparam);
 	}
 
 	public Map<String, String> getCaseOutparam() {
